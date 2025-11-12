@@ -77,9 +77,25 @@ header {
     text-decoration: none;
 }
 
-.logo i {
+.logo span {
+    font-size: 1.3rem;
+    /* slightly smaller than before */
+}
+
+.logo-img {
+    height: 55px;
+    /* increased from ~40px to make it stand out */
+    width: auto;
+    /* keeps proportions */
+    object-fit: contain;
     margin-right: 10px;
-    font-size: 1.8rem;
+    /* spacing between logo and text */
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
 .nav-links {
@@ -153,41 +169,7 @@ header {
     cursor: pointer;
     color: var(--text-color);
 }
-/* Student Login Button */
-.student-login-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
-    margin-left: 1rem;
-}
 
-.student-login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.4);
-    color: white;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .student-login-btn {
-        margin-left: 0;
-        margin-top: 1rem;
-        order: 3;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .navbar {
-        flex-wrap: wrap;
-    }
-}
 
 /* Hero Section - Full Coverage */
 
@@ -1162,4 +1144,3 @@ footer {
         font-size: 0.85rem;
     }
 }
-
