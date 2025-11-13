@@ -7,6 +7,117 @@
     <title>Axcentra - Tech Training & Internships</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Certificate Verification Popup Styles */
+        
+        .certificate-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .certificate-popup.active {
+            display: flex;
+        }
+        
+        .certificate-popup-content {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .certificate-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .certificate-popup h2 {
+            text-align: center;
+            color: #00eaff;
+            margin-bottom: 20px;
+        }
+        
+        .certificate-popup input,
+        .certificate-popup button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: none;
+        }
+        
+        .certificate-popup button {
+            background: #00eaff;
+            color: black;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .certificate-popup .ok {
+            background: #c9ffe0;
+            color: black;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+        
+        .certificate-popup .bad {
+            background: #ffd6d6;
+            color: black;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+        /* Verify Certificate Button in Nav */
+        
+        .verify-certificate-btn {
+            background: transparent;
+            color: var(--text-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        .verify-certificate-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 992px) {
+            .verify-certificate-btn {
+                margin-left: 0;
+                margin-top: 1rem;
+                order: 4;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body class="dark-theme">
@@ -33,6 +144,11 @@
                     Student Login
                 </a>
 
+                <!-- Verify Certificate Button -->
+                <button class="verify-certificate-btn" id="verifyCertificateBtn">
+                    Verify Certificate
+                </button>
+
                 <div class="nav-controls">
                     <button id="themeToggle" class="theme-toggle">
                         <i class="fas fa-moon"></i>
@@ -44,6 +160,21 @@
             </nav>
         </div>
     </header>
+
+    <!-- Certificate Verification Popup -->
+    <div class="certificate-popup" id="certificatePopup">
+        <div class="certificate-popup-content">
+            <button class="certificate-popup-close" id="certificatePopupClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Certificate Verification</h2>
+            <div class="card">
+                <input id="cid" placeholder="Enter Certificate ID">
+                <button onclick="verify()">Verify</button>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -527,7 +658,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Our courses typically range from 3 to 6 months, depending on the program. Each course includes both theoretical learning and hands-on project work to ensure comprehensive understanding.</p>
+                        <p>Our courses typically range from 1 to 2 months, depending on the program. Each course includes both theoretical learning and hands-on project work to ensure comprehensive understanding.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -621,6 +752,67 @@
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.90/build/spline-viewer.js"></script>
 
 
+
+    <script>
+        // Certificate Verification Functionality
+        const API_URL = "https://script.google.com/macros/s/AKfycbwI1Y-slfipo2SY4aFh7Z8qrnLKG_ThaxfZDxerGG7tvi-DokQvpfcfv7c3FzEWlr55/exec";
+
+        function verify() {
+            let id = document.getElementById("cid").value.trim();
+
+            fetch(API_URL + "?id=" + id)
+                .then(r => r.json())
+                .then(data => {
+                    let box = document.getElementById("result");
+                    if (data.error) {
+                        box.className = "bad";
+                        box.innerHTML = "❌ Invalid Certificate ID";
+                    } else {
+                        box.className = "ok";
+                        box.innerHTML = `
+                ✔ Verified<br><br>
+                Name: ${data.name}<br>
+                Course: ${data.course}<br>
+                Issue: ${data.issue}
+                `;
+                    }
+                })
+                .catch(err => {
+                    document.getElementById("result").innerHTML = "Error: " + err;
+                });
+        }
+
+        // Popup functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const verifyBtn = document.getElementById('verifyCertificateBtn');
+            const popup = document.getElementById('certificatePopup');
+            const closeBtn = document.getElementById('certificatePopupClose');
+
+            // Open popup when Verify Certificate button is clicked
+            verifyBtn.addEventListener('click', function() {
+                popup.classList.add('active');
+            });
+
+            // Close popup when close button is clicked
+            closeBtn.addEventListener('click', function() {
+                popup.classList.remove('active');
+            });
+
+            // Close popup when clicking outside the content
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    popup.classList.remove('active');
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && popup.classList.contains('active')) {
+                    popup.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
