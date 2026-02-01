@@ -247,13 +247,22 @@
                 <ul class="features-list">
                     <li><i class="fas fa-file-alt check-basic"></i> Basic Offer Letter</li>
                     <li><i class="fas fa-certificate check-basic"></i> Standard Certificate</li>
-                    <li><i class="fas fa-map-signs check-basic"></i> Learning Roadmap</li> <li><i class="fas fa-clipboard-check check-basic"></i> Access to Quizzes</li>
+                    <li><i class="fas fa-map-signs check-basic"></i> Learning Roadmap</li>
+                    <li><i class="fas fa-clipboard-check check-basic"></i> Access to Quizzes</li>
                     <li><i class="fas fa-project-diagram check-basic"></i> 1 Minor Project</li>
                     <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-times"></i> Verified ID</li>
                     <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-times"></i> Letter of Recommendation</li>
                     <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-gift"></i> Referral Rewards</li>
                 </ul>
-                <a href="https://forms.gle/mY518ujtvfnSNd4f7" class="cta-btn btn-free">Join for Free</a>
+
+                <div class="cert-themes">
+                    <h4 style="font-size:0.95rem; color:var(--text-muted);">Standard Certificate Preview:</h4>
+                    <div class="theme-preview" style="width: 100%;" onclick="openModal(this.querySelector('img').src)">
+                        <img src="images/standard-cert.png" alt="Standard Cert" onerror="this.src='https://placehold.co/400x300/333/fff?text=Standard+Certificate'">
+                    </div>
+                </div>
+
+                <a href="https://forms.gle/5T43Rq7kCUKhJYes6" class="cta-btn btn-free">Join for Free</a>
             </div>
 
             <div class="plan-card plan-premium animate-entry">
@@ -266,7 +275,8 @@
                     <li><i class="fas fa-file-signature check-premium"></i> <b>Best Designed Offer Letter</b></li>
                     <li><i class="fas fa-award check-premium"></i> <b>AICTE & MSME Verified Certificate</b></li>
                     <li><i class="fas fa-fingerprint check-premium"></i> <b>Unique Certificate Verification ID</b></li>
-                    <li><i class="fas fa-map-signs check-premium"></i> <b>Complete Learning Roadmap</b></li> <li><i class="fas fa-star check-premium"></i> <b>Letter of Recommendation (LOR)</b></li>
+                    <li><i class="fas fa-map-signs check-premium"></i> <b>Complete Learning Roadmap</b></li>
+                    <li><i class="fas fa-star check-premium"></i> <b>Letter of Recommendation (LOR)</b></li>
                     <li><i class="fas fa-file-word check-premium"></i> Resume Builder Support</li>
                     <li><i class="fas fa-tasks check-premium"></i> Quizzes & Home Assignments</li>
                     <li><i class="fas fa-laptop-code check-premium"></i> <b>Major + Minor Live Projects</b></li>
