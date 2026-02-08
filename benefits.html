@@ -223,6 +223,22 @@
             .theme-grid { grid-template-columns: repeat(2, 1fr); }
             .page-title h1 { font-size: 2.2rem; }
         }
+
+       @media(max-width: 768px) {
+    .plans-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .plan-premium {
+        order: 1;
+    }
+
+    .plan-free {
+        order: 2;
+    }
+}
+ 
     </style>
 </head>
 <body>
@@ -234,7 +250,7 @@
         </div>
 
         <div class="page-title animate-entry">
-            <h1>Why Choose <span class="gradient-text">Paid Course?</span></h1>
+            <h1>Why Choose <span class="gradient-text">Premium?</span></h1>
             <p style="color:var(--text-muted);">Invest in your future with industry-recognized credentials.</p>
         </div>
 
@@ -245,14 +261,13 @@
                     <p>Good for learning basics</p>
                 </div>
                 <ul class="features-list">
-                    <li><i class="fas fa-file-alt check-basic"></i> Basic Offer Letter</li>
                     <li><i class="fas fa-certificate check-basic"></i> Standard Certificate</li>
                     <li><i class="fas fa-map-signs check-basic"></i> Learning Roadmap</li>
                     <li><i class="fas fa-clipboard-check check-basic"></i> Access to Quizzes</li>
                     <li><i class="fas fa-project-diagram check-basic"></i> 1 Minor Project</li>
-                    <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-times"></i> Verified ID</li>
                     <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-times"></i> Letter of Recommendation</li>
-                    <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-gift"></i> Referral Rewards</li>
+                    <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-gift"></i>Unique Certificate Verification ID</li>
+                    <li style="opacity: 0.3; text-decoration: line-through;"><i class="fas fa-gift"></i>Top 20 Companies Interview Questions</li>
                 </ul>
 
                 <div class="cert-themes">
@@ -268,19 +283,66 @@
             <div class="plan-card plan-premium animate-entry">
                 <div class="badge">RECOMMENDED</div>
                 <div class="plan-header">
-                    <h2>Paid Course</h2>
+                    <h2>Premium Course</h2>
                     <p>Job-Ready Career Boost</p>
                 </div>
                 <ul class="features-list">
-                    <li><i class="fas fa-file-signature check-premium"></i> <b>Best Designed Offer Letter</b></li>
-                    <li><i class="fas fa-award check-premium"></i> <b>AICTE & MSME Verified Certificate</b></li>
-                    <li><i class="fas fa-fingerprint check-premium"></i> <b>Unique Certificate Verification ID</b></li>
-                    <li><i class="fas fa-map-signs check-premium"></i> <b>Complete Learning Roadmap</b></li>
-                    <li><i class="fas fa-star check-premium"></i> <b>Letter of Recommendation (LOR)</b></li>
-                    <li><i class="fas fa-file-word check-premium"></i> Resume Builder Support</li>
-                    <li><i class="fas fa-tasks check-premium"></i> Quizzes & Home Assignments</li>
-                    <li><i class="fas fa-laptop-code check-premium"></i> <b>Major + Minor Live Projects</b></li>
-                    
+                         <li>
+                           <i class="fas fa-award check-premium"></i>
+                             <b>AICTE & MSME Verified Certificate</b>
+                        </li>
+
+                    <li>
+                     <i class="fas fa-laptop-code check-premium"></i>
+                        <b>Major + Minor Live Industry Projects</b>
+                    </li>
+
+                    <li>
+                    <i class="fas fa-briefcase check-premium"></i>
+                    <b>Complete Placement Preparation Material</b>
+                    </li>
+
+                    <li>
+                    <i class="fas fa-file-alt check-premium"></i>
+                    <b>ATS Friendly Resume Templates + Resume Builder</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-user-tie check-premium"></i>
+                        <b>Top 20 Companies Interview Questions</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-star check-premium"></i>
+                        <b>Letter of Recommendation (LOR)</b>
+                    </li>
+ 
+                    <li>
+                        <i class="fas fa-fingerprint check-premium"></i>
+                        <b>Unique Certificate Verification ID</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-map-signs check-premium"></i>
+                        <b>Complete Learning Roadmaps</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-code check-premium"></i>
+                        <b>30+ Industry-Ready Software Source Codes</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-tasks check-premium"></i>
+                        <b>Quizzes & Home Assignments</b>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-book-open check-premium"></i>
+                        <b>All Subjects Handwritten + Digital Notes</b>
+                    </li>
+
+ 
                     <li>
                         <i class="fas fa-gift check-premium"></i> 
                         <div>
@@ -288,7 +350,9 @@
                             <span class="referral-text">Invite friends & earn cashback</span>
                         </div>
                     </li>
+
                 </ul>
+
 
                 <div class="cert-themes">
                     <h4>Select Your Certificate Theme (Tap to View):</h4>
@@ -305,7 +369,7 @@
                     </div>
                 </div>
 
-                <a href="https://forms.gle/3VzjHGNCtsCpx6RU9" class="cta-btn btn-premium">Paid Course</a>
+                <a href="https://forms.gle/3VzjHGNCtsCpx6RU9" class="cta-btn btn-premium">Get Premium Access</a>
             </div>
         </div>
     </div>
