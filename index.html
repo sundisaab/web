@@ -158,22 +158,6 @@
             transform: translateY(-2px); 
             box-shadow: 0 0 20px rgba(123, 97, 255, 0.4); 
         }
-
-        /* NEW STYLE FOR PREMIUM BUTTON */
-        .btn-gradient {
-            background: var(--accent-gradient); 
-            color: #ffffff;
-            font-weight: 600; font-size: 0.95rem;
-            padding: 16px 32px; border-radius: var(--radius-pill);
-            border: none; cursor: pointer; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 8px;
-            font-family: var(--font-head); justify-content: center;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-        }
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
-        }
         
         .btn-glass-nav {
             background: rgba(255, 255, 255, 0.05); color: var(--text-main); 
@@ -187,48 +171,7 @@
             border-color: var(--accent-blue);
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
-/* NEW STYLE FOR HERO FREE BUTTON */
-.btn-free-hero {
-    background: rgba(255, 255, 255, 0.08); /* Thoda visible glass effect */
-    color: var(--text-main);
-    border: 1px solid var(--accent-cyan); /* Cyan Border taaki dikhe */
-    padding: 16px 32px; 
-    border-radius: var(--radius-pill);
-    cursor: pointer; 
-    font-size: 0.95rem; 
-    font-weight: 600; 
-    font-family: var(--font-head);
-    display: inline-flex; align-items: center; gap: 10px;
-    transition: 0.3s;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.1); /* Halki si glow */
-}
 
-/* Hover Effect */
-.btn-free-hero:hover {
-    background: rgba(6, 182, 212, 0.15); /* Hover pe cyan tint */
-    box-shadow: 0 0 25px rgba(6, 182, 212, 0.4); /* Strong Glow */
-    transform: translateY(-2px);
-    border-color: #fff;
-}
-
-/* LIGHT MODE SPECIFIC FIX */
-[data-theme="light"] .btn-free-hero {
-    background: #ffffff;
-    border: 2px solid var(--accent-cyan); /* Thoda mota border light mode ke liye */
-    color: #000000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-[data-theme="light"] .btn-free-hero:hover {
-    background: var(--accent-cyan);
-    color: #ffffff;
-}
-[data-theme="light"] .btn-free-hero i {
-    color: var(--accent-cyan);
-}
-[data-theme="light"] .btn-free-hero:hover i {
-    color: #ffffff;
-}
         .theme-toggle {
             background: transparent; border: none; color: var(--text-main);
             font-size: 1.2rem; cursor: pointer; width: 40px; height: 40px;
@@ -748,15 +691,10 @@
                     <h1>Master <span class="hero-gradient-text type-wrap"><span class="typewriter" id="typingText"></span></span><br>Today.</h1>
                     <p>Unlock your potential with hands-on internships, industry-grade projects, and mentorship from top engineers. The smartest way to launch your tech career.</p>
                     
-<div class="hero-btns">
-    <a href="benefits.html" class="btn-free-hero">
-        <i class="fas fa-book-open" style="color:var(--accent-cyan);"></i> Free Course
-    </a>
-
-    <a href="benefits.html" class="btn-gradient">
-          Paid Course
-    </a>
-</div>
+                    <div class="hero-btns">
+                        <button class="btn-ios" style="padding:16px 32px;" onclick="document.querySelector('#courses').scrollIntoView()">Explore Courses</button>
+                        <a href="https://forms.gle/3VzjHGNCtsCpx6RU9" target="_blank" class="btn-glass-nav" style="padding:16px 32px;">Apply Now <i class="fas fa-external-link-alt"></i></a>
+                    </div>
                 </div>
 
                 <div class="hero-visual">
@@ -1392,3 +1330,4 @@
     </script>
 </body>
 </html>
+
