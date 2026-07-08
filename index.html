@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  /* ============ TOKENS (LIGHT THEME DEFAULT) ============ */
+
   :root{
     --black: #f3f3f5;
     --panel: #ffffff;
@@ -418,6 +418,28 @@
   .foot-bottom a{ color: var(--muted-2); }
   .foot-bottom a:hover{ color: var(--orange-light); }
 
+  /* ============ VERIFICATION MODAL ============ */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none; transition: 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal-window {
+    background: var(--panel);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--line);
+    padding: 30px; border-radius: 20px; width: 90%; max-width: 450px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px var(--orange-glow);
+    position: relative;
+    color: var(--white);
+  }
+  .modal-window h3 { color: var(--white); font-family: var(--f-display); }
+  .modal-window #closeCert { color: var(--muted); transition: 0.3s; }
+  .modal-window #closeCert:hover { color: var(--white); }
+  .modal-window input { color: var(--white); }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 980px){
     .nav-links{ display:none; }
@@ -509,6 +531,7 @@
         <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
           <i class="fas fa-sun"></i>
         </button>
+        <button id="verifyBtn" class="nav-cta" style="background: transparent; border: 1px solid var(--line); color: var(--white);">Verify Certificate</button>
         <a href="https://unstop.com/o/9wo6vc8?lb=Rzr5q9JB&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Wkmvnhau43634" class="nav-cta" target="_blank">Register</a>
         <button class="hamburger" id="menuBtn"><i class="fas fa-bars"></i></button>
       </div>
@@ -524,7 +547,8 @@
   <a href="#timeline">Timeline</a>
   <a href="#prizes">Prizes</a>
   <a href="#faq">FAQ</a>
-  <a href="https://unstop.com/o/9wo6vc8?lb=Rzr5q9JB&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Wkmvnhau43634" class="btn-primary" style="margin-top:10px;" target="_blank">Register</a>
+  <button id="verifyBtnMobile" class="btn-primary" style="margin-top:10px; width: 80%; background: transparent; border: 1px solid var(--line); color: var(--white); font-size: 1rem; justify-content: center;">Verify Certificate</button>
+  <a href="https://unstop.com/o/9wo6vc8?lb=Rzr5q9JB&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Wkmvnhau43634" class="btn-primary" style="margin-top:10px; width: 80%; justify-content: center;" target="_blank">Register</a>
 </div>
 
 <main id="top">
@@ -797,6 +821,19 @@
   </div>
 </footer>
 
+<!-- VERIFICATION MODAL -->
+<div class="modal-overlay" id="certModal">
+    <div class="modal-window">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="margin:0;">Verify Certificate</h3>
+            <button id="closeCert" style="background:none; border:none; font-size:1.2rem; cursor:pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        <input type="text" id="cid" placeholder="Enter Certificate ID" style="width:100%; padding:14px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid var(--line); color:var(--white); margin-bottom:15px; font-family:inherit;">
+        <button id="verifyNow" class="btn-primary" style="width:100%; justify-content:center;">Check Status</button>
+        <div id="verifyResult" style="margin-top:15px;"></div>
+    </div>
+</div>
+
 <script>
   // theme toggle
   const themeToggleBtn = document.getElementById('themeToggle');
@@ -893,6 +930,72 @@
       if (!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
     });
   });
+
+  // VERIFICATION SYSTEM LOGIC
+  const certModal = document.getElementById('certModal');
+  document.getElementById('verifyBtn').onclick = () => certModal.classList.add('open');
+  if(document.getElementById('verifyBtnMobile')) {
+      document.getElementById('verifyBtnMobile').onclick = () => {
+          document.getElementById('mobileMenu').classList.remove('active');
+          certModal.classList.add('open');
+      };
+  }
+  document.getElementById('closeCert').onclick = () => certModal.classList.remove('open');
+  
+  document.getElementById('verifyNow').onclick = () => {
+      const id = document.getElementById('cid').value.trim();
+      const res = document.getElementById('verifyResult');
+
+      if(!id){
+          res.innerHTML = '<div style="color:#ff4444;">Please enter Certificate ID</div>';
+          return;
+      }
+
+      res.innerHTML = "Verifying...";
+
+      fetch("https://script.google.com/macros/s/AKfycbw8AjNPXCJwPVx3-5e_6JFMheRZTgUXCzWMmvBz8VQWn2m6WuaV4t4XolflKAJlMopURQ/exec?id=" + encodeURIComponent(id))
+      .then(r => r.json())
+      .then(d => {
+          if(!d || !d.name){
+              res.innerHTML = `
+              <div style="background:#fecaca;color:black;padding:18px;border-radius:10px;">
+              ❌ Certificate ID Not Found
+              </div>
+              `;
+              return;
+          }
+
+          let date = new Date(d.issue);
+          let day = date.getDate();
+          let month = date.toLocaleString('en-US',{month:'long'});
+          let year = date.getFullYear();
+          let issueDate = day+" "+month+" "+year;
+
+          res.innerHTML = `
+          <div style="
+          background:rgba(0,255,0,0.08);
+          border:1px solid rgba(0,255,0,0.4);
+          backdrop-filter:blur(10px);
+          padding:18px;
+          border-radius:12px;
+          margin-top:10px;
+          animation:fade 0.4s;
+          ">
+          <h3 style="color:#7CFFB2;margin-bottom:8px;">✔ Certificate Verified</h3>
+          <b>Name:</b> ${d.name}<br>
+          <b>Course:</b> ${d.course}<br>
+          <b>Issue Date:</b> ${issueDate}
+          </div>
+          `;
+      })
+      .catch(()=>{
+          res.innerHTML = `
+          <div style="background:#fecaca;color:black;padding:18px;border-radius:10px;">
+          Server Error
+          </div>
+          `;
+      });
+  }
 </script>
 
 </body>
